@@ -7,19 +7,30 @@ import AwayButtons from "./AwayButtons";
 import "./App.css";
 
 function App() {
-  //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
+
+  const homeName = 'Lions';
+  const awayName = 'Tigers';
   const [homeScore, setHomeScore] = useState(0);
   const [awayScore, setAwayScore] = useState(0);
+
+  const scoreHandler = (event, teamName='Lions', addScore=5) => {
+    if(teamName === homeName) {
+      setHomeScore(homeScore + addScore);
+    }
+    else if(teamName === awayName) {
+      setAwayScore(awayScore + addScore)
+    }
+  }
 
   return (
     <div className="container">
       <section className="scoreboard">
-        <TopRow homeScore={homeScore} awayScore={awayScore}/>
+        <TopRow homeName={homeName} homeScore={homeScore} awayName={awayName} awayScore={awayScore}/>
         <BottomRow />
       </section>
       <section className="buttons">
-        <HomeButtons homeScore={homeScore} setHomeScore={setHomeScore}/>
-        <AwayButtons awayScore={awayScore} setAwayScore={setAwayScore}/>
+        <HomeButtons homeScore={homeScore} setHomeScore={setHomeScore} scoreHandler={scoreHandler}/>
+        <AwayButtons awayScore={awayScore} setAwayScore={setAwayScore} scoreHandler={scoreHandler}/>
       </section>
     </div>
   );
